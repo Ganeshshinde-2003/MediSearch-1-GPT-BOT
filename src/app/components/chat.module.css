@@ -1,0 +1,64 @@
+.searchContainer {
+  display: flex;
+  align-items: center;
+  min-width: 20%;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.chatInput {
+  flex-grow: 1;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px 0 0 5px;
+  background-color: transparent;
+}
+
+.searchButton {
+  background-color: transparent;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.sendIcon {
+  width: 20px;
+  height: 20px;
+  color: #6884ff;
+}
+
+.chatInput:focus {
+  outline: none;
+  border-color: #aaa;
+}
+
+.message {
+  display: flex;
+  font-size: 15px;
+  color: white;
+  margin: 10px;
+  padding: 10px 15px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.userMessage {
+  align-self: flex-end;
+  background-color: #6884ff;
+  border-bottom-left-radius: 10px;
+}
+.assistantMessage {
+  align-self: flex-start;
+  background-color: #303346;
+  border-bottom-right-radius: 10px;
+}
+@media screen and (max-width: 400px) {
+  .message {
+    font-size: 13px;
+  }
+  .searchContainer {
+    width: 98%;
+  }
+}
