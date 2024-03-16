@@ -9,8 +9,10 @@ import ChatUI from "./components/chatUI";
 function submitModelRequest(
   currentQuestion: string,
   messages: OpenAI.Chat.ChatCompletionMessageParam[],
-  setMessages: (messages: OpenAI.Chat.ChatCompletionMessageParam[]) => void
+  setMessages: (messages: OpenAI.Chat.ChatCompletionMessageParam[]) => void,
+  setLoading: (loading: boolean) => void
 ) {
+  setLoading(true);
   const newMessage: OpenAI.Chat.ChatCompletionMessageParam = {
     role: "user",
     content: currentQuestion,
@@ -53,6 +55,9 @@ function submitModelRequest(
     })
     .catch((error) => {
       console.error("Fetch error:", error);
+    })
+    .finally(() => {
+      setLoading(false);
     });
 }
 
@@ -62,7 +67,7 @@ export default function ChatPage() {
   >([]);
   const [currentQuestion, setCurrentQuestion] = useState("");
   const scrollableBoxRef = useRef<HTMLDivElement>(null);
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (scrollableBoxRef.current) {
       scrollableBoxRef.current.scrollTop =
@@ -89,9 +94,13 @@ export default function ChatPage() {
           </div>
         )}
       </div>
+      {loading && (
+          <div className={styles.loadingContainer}>
+            <div className={styles.glowingDot}></div>
+          </div>)}
       <ChatInputField
         onSearchButtonClick={(currentQuestion: string) => {
-          submitModelRequest(currentQuestion, messages, setMessages);
+          submitModelRequest(currentQuestion, messages, setMessages, setLoading);
         }}
         currentQuestion={currentQuestion}
         setCurrentQuestion={setCurrentQuestion}
